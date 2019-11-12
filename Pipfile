@@ -10,9 +10,10 @@ ipython = "*"
 ipdb = "*"
 
 [packages]
-keras = "==2.3.1"
+keras = "==2.2.5"
 scikit-image = "==0.16.2"
 numpy = "==1.17.4"
+tensorflow = "==1.14"
 
 [requires]
 python_version = "3.7"

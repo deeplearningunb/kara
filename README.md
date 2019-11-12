@@ -61,7 +61,7 @@ pipenv install # Will install all of the project dependencies
 Install `tensorflow`:
 
 ```shell
-pip install tensorflow==2.0.0
+pip install tensorflow==1.14
 ```
 
 Due to some error while locking packages stage, as can be seen in this [issue](https://github.com/pypa/pipenv/issues/3952), the tensorflow installation has to be manual.
