@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+autopep8 = "*"
+ipython = "*"
+ipdb = "*"
+
+[packages]
+keras = "==2.3.1"
+scikit-image = "==0.16.2"
+numpy = "==1.17.4"
+
+[requires]
+python_version = "3.7"
