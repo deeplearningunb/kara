@@ -1,5 +1,6 @@
-from network import kara
+from network.kara import Kara
 import logging
+import warnings
 
 
 def main():
@@ -8,8 +9,10 @@ def main():
                         datefmt='%Y-%m-%d %H:%M:%S',
                         level=logging.DEBUG)
     logging.info('[INFO] Creating KARA')
+    warnings.simplefilter("ignore")
     try:
-        kara.assemble()
+        assistant = Kara()
+        assistant.assemble(20)
     except Exception as identifier:
         logging.error(f'[ERROR] Unknown error while executing KARA.'
                       f'\t\t\t\t\nTraceback: {identifier}')

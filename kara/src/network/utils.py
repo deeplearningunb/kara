@@ -1,10 +1,10 @@
 from keras.applications.inception_resnet_v2 import (InceptionResNetV2,
                                                     preprocess_input)
-from keras.layers.core import (RepeatVector, Reshape, concatenate)
+from keras.layers.core import (RepeatVector, Reshape)
 from keras.preprocessing.image import ImageDataGenerator
-from keras.layers import (Conv2D, UpSampling2D, Input)
+from keras.layers import (Conv2D, UpSampling2D, Input, concatenate)
 from keras.models import (Model)
-from skimage.color import (gray2rgb, rgb2lab)
+from skimage.color import (gray2rgb, rgb2lab, rgb2gray)
 from skimage.transform import (resize)
 import numpy as np
 import tensorflow as tf
@@ -89,20 +89,20 @@ def load_weights(weights: str):
     return inception
 
 
-def image_generator(batch_size: int, base_images: list):
+def image_generator(batch_size: int, base_images: list, inception):
     # Image transformer
     datagen = ImageDataGenerator(
-        shear_range=0.2,
-        zoom_range=0.2,
-        rotation_range=20,
+        shear_range=0.4,
+        zoom_range=0.4,
+        rotation_range=40,
         horizontal_flip=True
     )
     # Generate images
     for batch in datagen.flow(base_images, batch_size=batch_size):
         grayscaled_rgb = gray2rgb(rgb2gray(batch))
-        embed = create_inception_embedding(grayscaled_rgb)
+        embed = create_inception_embedding(grayscaled_rgb, inception)
         lab_batch = rgb2lab(batch)
         X_batch = lab_batch[:, :, :, 0]
         X_batch = X_batch.reshape(X_batch.shape + (1,))
         Y_batch = lab_batch[:, :, :, 1:] / 128
-        yield ([X_batch, create_inception_embedding(grayscaled_rgb)], Y_batch)
+        yield ([X_batch, embed], Y_batch)
