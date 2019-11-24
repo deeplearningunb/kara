@@ -8,6 +8,8 @@ from skimage.io import imsave
 import logging
 import tensorflow as tf
 import numpy as np
+from keras.models import load_model, model_from_json
+import json
 
 
 class Kara():
@@ -62,6 +64,33 @@ class Kara():
         # Y_test = rgb2lab(1.0 / 255 * X[split:])[:, :, :, 1:]
         # Y_test = Y_test / 128
         # print(model.evaluate(X_test, Y_test, batch_size=batch_size))
+
+        X_test = get_images('dataset/images/test/', 10)
+        X_test = 1.0/255*X_test
+        X_test = gray2rgb(rgb2gray(X_test))
+
+        X_test_embed = create_inception_embedding(X_test, inception)
+
+        X_test = rgb2lab(X_test)[:,:,:,0]
+        X_test = X_test.reshape(X_test.shape+(1,))
+
+        output = model.predict([X_test, X_test_embed])
+        output = output*128
+
+        for i in range(len(output)):
+            cur = np.zeros((256, 256, 3))
+            cur[:,:,0] = X_test[i][:,:,0]
+            cur[:,:,1:] = output[i]
+            imsave("output/images/img_" + str(i) + ".png", lab2rgb(cur))
+
+    def assemble_from_file(self):
+        with open('output/model.json', 'r') as f:
+            model_json = f.read()
+
+        model = model_from_json(model_json)
+        model.load_weights('model.h5')
+        
+        inception = load_weights('imagenet')
 
         X_test = get_images('dataset/images/test/', 10)
         X_test = 1.0/255*X_test
