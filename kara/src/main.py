@@ -13,6 +13,9 @@ def args_error():
         \n\tpython3 main.py loadmodel (to load last trained model)'
     )
 
+def predict_images(number_of_images: int, assistant):
+    assistant.predict_test_images(number_of_images)
+
 def load_model():
     try:
         assistant = Kara()
@@ -20,6 +23,7 @@ def load_model():
     except Exception as identifier:
         logging.error(f'[ERROR] Unknown error while executing KARA.'
                       f'\t\t\t\t\nTraceback: {identifier}')
+    return assistant
 
 
 def create_model():
@@ -29,6 +33,7 @@ def create_model():
     except Exception as identifier:
         execution_error(identifier)
 
+    return assistant
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
@@ -42,9 +47,11 @@ if __name__ == '__main__':
         warnings.simplefilter("ignore")
 
         if sys.argv[1] == 'createmodel':
-            create_model()
+            assistant = create_model()
+            predict_images(10, assistant)
         elif sys.argv[1] == 'loadmodel':
-            load_model()
+            assistant = load_model()
+            predict_images(10, assistant)
         else:
             args_error()
 
