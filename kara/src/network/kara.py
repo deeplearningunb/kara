@@ -3,10 +3,11 @@ from data.manager import get_images
 from network.utils import (build_model, create_inception_embedding,
                            load_weights, image_generator)
 from keras.callbacks import TensorBoard
-from skimage.color import lab2rgb, rgb2gray, rgb2lab
+from skimage.color import lab2rgb, rgb2gray, rgb2lab, gray2rgb
 from skimage.io import imsave
 import logging
 import tensorflow as tf
+import numpy as np
 
 
 class Kara():
@@ -46,8 +47,8 @@ class Kara():
         model.fit_generator(
             image_generator(batch_size, X_train, inception),
             callbacks=[tensorboard],
-            epochs=20,
-            steps_per_epoch=50
+            epochs=1,
+            steps_per_epoch=1
         )
 
         # Save model
@@ -61,3 +62,21 @@ class Kara():
         # Y_test = rgb2lab(1.0 / 255 * X[split:])[:, :, :, 1:]
         # Y_test = Y_test / 128
         # print(model.evaluate(X_test, Y_test, batch_size=batch_size))
+
+        X_test = get_images('dataset/images/test/', 10)
+        X_test = 1.0/255*X_test
+        X_test = gray2rgb(rgb2gray(X_test))
+
+        X_test_embed = create_inception_embedding(X_test, inception)
+
+        X_test = rgb2lab(X_test)[:,:,:,0]
+        X_test = X_test.reshape(X_test.shape+(1,))
+
+        output = model.predict([X_test, X_test_embed])
+        output = output*128
+
+        for i in range(len(output)):
+            cur = np.zeros((256, 256, 3))
+            cur[:,:,0] = X_test[i][:,:,0]
+            cur[:,:,1:] = output[i]
+            imsave("output/images/img_" + str(i) + ".png", lab2rgb(cur))
