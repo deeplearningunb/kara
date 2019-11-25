@@ -8,8 +8,7 @@ from skimage.io import imsave
 import logging
 import tensorflow as tf
 import numpy as np
-from keras.models import load_model, model_from_json
-import json
+from keras.models import model_from_json
 
 
 class Kara():
@@ -28,7 +27,7 @@ class Kara():
 
         X_test_embed = create_inception_embedding(X_test, self.inception)
 
-        X_test = rgb2lab(X_test)[:,:,:,0]
+        X_test = rgb2lab(X_test)[:, :, :, 0]
         X_test = X_test.reshape(X_test.shape+(1,))
 
         output = self.model.predict([X_test, X_test_embed])
@@ -36,10 +35,9 @@ class Kara():
 
         for i in range(len(output)):
             cur = np.zeros((256, 256, 3))
-            cur[:,:,0] = X_test[i][:,:,0]
-            cur[:,:,1:] = output[i]
+            cur[:, :, 0] = X_test[i][:, :, 0]
+            cur[:, :, 1:] = output[i]
             imsave("output/images/img_" + str(i) + ".png", lab2rgb(cur))
-
 
     def assemble(self, batch_size: int):
         tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
@@ -95,7 +93,7 @@ class Kara():
 
         model = model_from_json(model_json)
         model.load_weights('model.h5')
-        
+
         self.model = model
 
         # Load weights
