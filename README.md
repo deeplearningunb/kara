@@ -1,5 +1,7 @@
 # Kara
 
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
 Kara (**K**olouring **Ar**tificial **A**ssitant), is an AI bot the colourize B&W photos.
 
 All the images used in the dataset are from [Unplash](https://unsplash.com/) and are creative common pictures by professional photographers. It includes 9.5 thousand training images and 500 validation images.
@@ -7,6 +9,7 @@ All the images used in the dataset are from [Unplash](https://unsplash.com/) and
 ## Dependencies
 
 - [Python 3.7](https://www.python.org/downloads/release/python-375/)
+- [Standard Version](https://github.com/conventional-changelog/standard-version)
 
 ## Configuration
 
@@ -67,6 +70,32 @@ pip install tensorflow==1.14
 Due to some error while locking packages stage, as can be seen in this [issue](https://github.com/pypa/pipenv/issues/3952), the tensorflow installation has to be manual.
 
 **Observaion**: Again, if necessary, add the flag `--user` to make the pipenv package installation for the local user.
+
+## Build
+
+### Generate Changelog
+
+To generate changelog we use the `standard version` tool, it will auto generate a new changelog for every new release by using the commit messages. To generate a new release and generate the updated changelog just do the following steps:
+
+1. Install all dependencies
+
+```shell
+yarn install
+```
+
+2. Run standard version:
+
+```shell
+npm run release
+```
+
+If the release is a pre-release you should add the `--prerelease` to the command:
+
+```shell
+npm run release -- --prerelease alpha
+```
+
+For further instructions or other options check the full documentation of `standard version` project in the [CLI Usage](https://github.com/conventional-changelog/standard-version#cli-usage) section.
 
 ## References
 

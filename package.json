@@ -1,0 +1,28 @@
+{
+  "name": "kara",
+  "version": "alpha-0.0.1",
+  "description": "Kolourizing ARtificial Assistant - An AI to help you give colour to B&W photos!",
+  "main": "kara/model.h5",
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/deeplearningunb/kara.git",
+  },
+  "keywords": [
+      "ai",
+      "deep-learning",
+      "colour"
+  ],
+  "author": "João Pedro Sconetto <sconetto.joao@gmail.com> & Victor Moura <victor_cmoura@hotmail.com>",
+  "license": "GPLv3",
+  "bugs": {
+      "url": "https://github.com/sconetto/msa-docs/issues"
+  },
+  "private": false,
+  "dependencies": {},
+  "devDependencies": {
+    "standard-version": "^7.0.1"
+  },
+  "scripts": {
+    "release": "standard-version"
+  }
+}
