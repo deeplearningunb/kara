@@ -12,13 +12,16 @@ def execution_error(identifier):
 def args_error():
     logging.error(f'[ERROR] No valid operation mode defined.\nRun: \
         \n\tpython3 main.py createmodel (to retfrain the model) \
-        \n\tpython3 main.py loadmodel (to load last trained model)'
+        \n\tpython3 main.py loadmodel (to load last trained model) \
+        \n\tpython3 main.py f <filename1> <filename2> ... (to predict specific files)'
                   )
 
 
 def predict_images(number_of_images: int, assistant):
     assistant.predict_test_images(number_of_images)
 
+def predict_custom_images(assistant, images_list):
+    assistant.predict_custom_images(images_list)
 
 def load_model():
     try:
@@ -57,5 +60,12 @@ if __name__ == '__main__':
         elif sys.argv[1] == 'loadmodel':
             assistant = load_model()
             predict_images(10, assistant)
+        elif sys.argv[1] == 'f':
+            if len(sys.argv) < 3:
+                args_error()
+            else:
+                images_list = sys.argv[2:]
+                assistant = load_model()
+                predict_custom_images(assistant, images_list)
         else:
             args_error()

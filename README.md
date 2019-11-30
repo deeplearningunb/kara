@@ -8,6 +8,31 @@ Kara (**K**olouring **Ar**tificial **A**ssitant), is an AI bot the colourize B&W
 
 All the images used in the dataset are from [Unplash](https://unsplash.com/) and are creative common pictures by professional photographers. It includes 9.5 thousand training images and 500 validation images.
 
+## Usage
+
+To retrain the model with the already available dataset, run:
+
+```shell
+cd kara/
+python3 main.py createmodel
+```
+
+To load the already trained model (there already is a trained model in the project):
+
+```shell
+cd kara/
+python3 main.py loadmodel
+```
+
+To predict specific images located in your filesystem, run:
+
+```shell
+cd kara/
+python3 main.py f <filename1> <filename2>
+```
+
+Each `<filename1>` represents a path to a specific image in your system. Multiple images are allowed, just separate each path with spaces.
+
 ## Dependencies
 
 - [Python 3.7](https://www.python.org/downloads/release/python-375/)
