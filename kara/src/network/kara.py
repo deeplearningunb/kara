@@ -69,15 +69,15 @@ class Kara():
         model.fit_generator(
             image_generator(batch_size, X_train, self.inception),
             callbacks=[tensorboard],
-            epochs=1000,
+            epochs=100,
             steps_per_epoch=20
         )
 
         # Save model
         model_json = model.to_json()
-        with open("output/model.json", "w") as json_file:
+        with open("output/model/model.json", "w") as json_file:
             json_file.write(model_json)
-        model.save_weights("model.h5")
+        model.save_weights("output/model/model.h5")
 
         self.model = model
 
@@ -89,11 +89,11 @@ class Kara():
         # print(self.model.evaluate(X_test, Y_test, batch_size=batch_size))
 
     def assemble_from_file(self):
-        with open('output/model.json', 'r') as f:
+        with open('output/model/model.json', 'r') as f:
             model_json = f.read()
 
         model = model_from_json(model_json)
-        model.load_weights('model.h5')
+        model.load_weights('output/model/model.h5')
 
         self.model = model
 
