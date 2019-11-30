@@ -14,7 +14,7 @@ from keras.models import model_from_json
 class Kara():
     # Limit of files to be read
     # Define the limit via environment variables
-    FILELIMIT = 999
+    FILELIMIT = 2500
 
     def __init__(self):
         self.inception = None
@@ -54,7 +54,8 @@ class Kara():
         X_train = (1.0 / 255 * X_train)
 
         # Load weights
-        inception = load_weights('imagenet')
+        resnet_inception = load_weights('imagenet')
+        self.inception = resnet_inception
         # Build the neural network
         logging.info('[INFO] Building neural network')
         model = build_model(
@@ -66,10 +67,10 @@ class Kara():
         # Training
         tensorboard = TensorBoard(log_dir='output/logs/first_run')
         model.fit_generator(
-            image_generator(batch_size, X_train, inception),
+            image_generator(batch_size, X_train, self.inception),
             callbacks=[tensorboard],
-            epochs=1,
-            steps_per_epoch=1
+            epochs=1000,
+            steps_per_epoch=20
         )
 
         # Save model
@@ -80,12 +81,12 @@ class Kara():
 
         self.model = model
 
-        # # Test images
-        # X_test = rgb2lab(1.0 / 255 * X[split:])[:, :, :, 0]
-        # X_test = X_test.reshape(X_test.shape + (1,))
-        # Y_test = rgb2lab(1.0 / 255 * X[split:])[:, :, :, 1:]
-        # Y_test = Y_test / 128
-        # print(model.evaluate(X_test, Y_test, batch_size=batch_size))
+        # Test images
+        X_test = rgb2lab(1.0 / 255 * X[split:])[:, :, :, 0]
+        X_test = X_test.reshape(X_test.shape + (1,))
+        Y_test = rgb2lab(1.0 / 255 * X[split:])[:, :, :, 1:]
+        Y_test = Y_test / 128
+        # print(self.model.evaluate(X_test, Y_test, batch_size=batch_size))
 
     def assemble_from_file(self):
         with open('output/model.json', 'r') as f:

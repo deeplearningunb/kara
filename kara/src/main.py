@@ -3,18 +3,22 @@ import logging
 import warnings
 import sys
 
+
 def execution_error(identifier):
     logging.error(f'[ERROR] Unknown error while executing KARA.'
-                      f'\t\t\t\t\nTraceback: {identifier}')
+                  f'\t\t\t\t\nTraceback: {identifier}')
+
 
 def args_error():
     logging.error(f'[ERROR] No valid operation mode defined.\nRun: \
-        \n\tpython3 main.py createmodel (to retrain the model) \
+        \n\tpython3 main.py createmodel (to retfrain the model) \
         \n\tpython3 main.py loadmodel (to load last trained model)'
-    )
+                  )
+
 
 def predict_images(number_of_images: int, assistant):
     assistant.predict_test_images(number_of_images)
+
 
 def load_model():
     try:
@@ -35,14 +39,15 @@ def create_model():
 
     return assistant
 
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         args_error()
     else:
         logging.basicConfig(format='%(asctime)s,%(msecs)-3d - %(name)-2s - '
-                        '%(levelname)-2s => %(message)s',
-                        datefmt='%Y-%m-%d %H:%M:%S',
-                        level=logging.DEBUG)
+                                   '%(levelname)-2s => %(message)s',
+                            datefmt='%Y-%m-%d %H:%M:%S',
+                            level=logging.DEBUG)
         logging.info('[INFO] Creating KARA')
         warnings.simplefilter("ignore")
 
@@ -54,4 +59,3 @@ if __name__ == '__main__':
             predict_images(10, assistant)
         else:
             args_error()
-
