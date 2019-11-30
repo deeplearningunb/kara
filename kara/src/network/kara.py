@@ -1,5 +1,5 @@
 # Importing Libraries
-from data.manager import get_images
+from data.manager import get_images, get_custom_images
 from network.utils import (build_model, create_inception_embedding,
                            load_weights, image_generator)
 from keras.callbacks import TensorBoard
@@ -20,8 +20,8 @@ class Kara():
         self.inception = None
         self.model = None
 
-    def predict_test_images(self, number_of_images: int):
-        X_test = get_images('dataset/images/test/', number_of_images)
+    def predict(self, x_test):
+        X_test = x_test
         X_test = 1.0/255*X_test
         X_test = gray2rgb(rgb2gray(X_test))
 
@@ -38,6 +38,15 @@ class Kara():
             cur[:, :, 0] = X_test[i][:, :, 0]
             cur[:, :, 1:] = output[i]
             imsave("output/images/img_" + str(i) + ".png", lab2rgb(cur))
+
+
+    def predict_test_images(self, number_of_images: int):
+        X_test = get_images('dataset/images/test/', number_of_images)
+        self.predict(X_test)
+
+    def predict_custom_images(self, images_list):
+        X_test = get_custom_images(images_list)
+        self.predict(X_test)
 
     def assemble(self, batch_size: int):
         tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)

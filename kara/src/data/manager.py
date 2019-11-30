@@ -21,3 +21,16 @@ def get_images(path: str, limit: int):
 
     images = np.array(images, dtype=float)
     return images
+
+def get_custom_images(images_list):
+    images = []
+    for c, file in enumerate(images_list):
+        logging.debug(f'[DEBUG] Getting image[{c}] -- {file}')
+        images.append(
+            img_to_array(
+                load_img(file)
+            )
+        )
+
+    images = np.array(images, dtype=float)
+    return images
