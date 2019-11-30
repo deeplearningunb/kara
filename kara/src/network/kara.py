@@ -14,7 +14,7 @@ from keras.models import model_from_json
 class Kara():
     # Limit of files to be read
     # Define the limit via environment variables
-    FILELIMIT = 2500
+    FILELIMIT = 999
 
     def __init__(self):
         self.inception = None
@@ -22,16 +22,16 @@ class Kara():
 
     def predict_test_images(self, number_of_images: int):
         X_test = get_images('dataset/images/test/', number_of_images)
-        X_test = 1.0/255*X_test
+        X_test = 1.0 / 255 * X_test
         X_test = gray2rgb(rgb2gray(X_test))
 
         X_test_embed = create_inception_embedding(X_test, self.inception)
 
         X_test = rgb2lab(X_test)[:, :, :, 0]
-        X_test = X_test.reshape(X_test.shape+(1,))
+        X_test = X_test.reshape(X_test.shape + (1,))
 
         output = self.model.predict([X_test, X_test_embed])
-        output = output*128
+        output = output * 128
 
         for i in range(len(output)):
             cur = np.zeros((256, 256, 3))
@@ -70,7 +70,7 @@ class Kara():
             image_generator(batch_size, X_train, self.inception),
             callbacks=[tensorboard],
             epochs=100,
-            steps_per_epoch=20
+            steps_per_epoch=1
         )
 
         # Save model

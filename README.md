@@ -133,6 +133,15 @@ npm run release -- --prerelease alpha
 
 For further instructions or other options check the full documentation of `standard version` project in the [CLI Usage](https://github.com/conventional-changelog/standard-version#cli-usage) section.
 
+## Contributors
+
+Project contributors
+
+| Name | Registration |
+| --- | --- |
+| João Pedro Sconetto | 14/0145940 |
+| Victor Correia de Moura | 15/0150792 |
+
 ## References
 
 Iizuka, Satoshi & Simo-Serra, Edgar & Ishikawa, Hiroshi. (2016). Let there be color!: joint end-to-end learning of global and local image priors for automatic image colorization with simultaneous classification. ACM Transactions on Graphics. 35. 1-11. 10.1145/2897824.2925974.
