@@ -13,21 +13,21 @@ All the images used in the dataset are from [Unplash](https://unsplash.com/) and
 To retrain the model with the already available dataset, run:
 
 ```shell
-cd Kara/
+cd kara/
 python3 main.py createmodel
 ```
 
 To load the already trained model (there already is a trained model in the project):
 
 ```shell
-cd Kara/
+cd kara/
 python3 main.py loadmodel
 ```
 
 To predict specific images located in your filesystem, run:
 
 ```shell
-cd Kara/
+cd kara/
 python3 main.py f <filename1> <filename2>
 ```
 
