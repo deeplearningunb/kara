@@ -4,7 +4,7 @@
 
 Kara (**K**olouring **Ar**tificial **A**ssitant), is an AI bot the colourize B&W photos.
 
-<iframe src="https://giphy.com/embed/10mKMd68PI9jeU" width="480" height="173" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+![Kara](https://media.giphy.com/media/10mKMd68PI9jeU/giphy.gif)
 
 All the images used in the dataset are from [Unplash](https://unsplash.com/) and are creative common pictures by professional photographers. It includes 9.5 thousand training images and 500 validation images.
 
