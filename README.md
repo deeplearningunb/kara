@@ -4,6 +4,8 @@
 
 Kara (**K**olouring **Ar**tificial **A**ssitant), is an AI bot the colourize B&W photos.
 
+<iframe src="https://giphy.com/embed/10mKMd68PI9jeU" width="480" height="173" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
 All the images used in the dataset are from [Unplash](https://unsplash.com/) and are creative common pictures by professional photographers. It includes 9.5 thousand training images and 500 validation images.
 
 ## Dependencies
@@ -70,6 +72,40 @@ pip install tensorflow==1.14
 Due to some error while locking packages stage, as can be seen in this [issue](https://github.com/pypa/pipenv/issues/3952), the tensorflow installation has to be manual.
 
 **Observaion**: Again, if necessary, add the flag `--user` to make the pipenv package installation for the local user.
+
+### Local Execution
+
+For local system execution, run the following command in the project root folder (assuming virtualenv is already active):
+
+```shell
+cd kara
+python src/main.py createmodel
+```
+
+This will train and run the system on your machine. This way you can test new implementations or new optmizations. Also you can color the images for testing.
+
+### Test
+
+#### Lint
+
+To lint your code follow the script bellow:
+
+1. Enable virtualenv _color_;
+
+2. Ensure that the dependencies are installed, especially:
+
+```code
+flake8
+```
+
+3. Run the command below:
+
+```shell
+cd kara/
+flake8 src/
+```
+
+During the lint process the terminal will report a code errors and warnings from the PEP8 style guide, for more configurations and additional documentation go to [flake8](http://flake8.pycqa.org/en/latest/) and [PEP8](https://www.python.org/dev/peps/pep-0008/).
 
 ## Build
 
