@@ -14,7 +14,7 @@ from keras.models import model_from_json
 class Kara():
     # Limit of files to be read
     # Define the limit via environment variables
-    FILELIMIT = 2500
+    FILELIMIT = 999
 
     def __init__(self):
         self.inception = None
@@ -22,16 +22,16 @@ class Kara():
 
     def predict(self, x_test):
         X_test = x_test
-        X_test = 1.0/255*X_test
+        X_test = 1.0 / 255 * X_test
         X_test = gray2rgb(rgb2gray(X_test))
 
         X_test_embed = create_inception_embedding(X_test, self.inception)
 
         X_test = rgb2lab(X_test)[:, :, :, 0]
-        X_test = X_test.reshape(X_test.shape+(1,))
+        X_test = X_test.reshape(X_test.shape + (1,))
 
         output = self.model.predict([X_test, X_test_embed])
-        output = output*128
+        output = output * 128
 
         for i in range(len(output)):
             cur = np.zeros((256, 256, 3))
@@ -78,15 +78,15 @@ class Kara():
         model.fit_generator(
             image_generator(batch_size, X_train, self.inception),
             callbacks=[tensorboard],
-            epochs=1000,
-            steps_per_epoch=20
+            epochs=100,
+            steps_per_epoch=1
         )
 
         # Save model
         model_json = model.to_json()
-        with open("output/model.json", "w") as json_file:
+        with open("output/model/model.json", "w") as json_file:
             json_file.write(model_json)
-        model.save_weights("model.h5")
+        model.save_weights("output/model/model.h5")
 
         self.model = model
 
@@ -98,11 +98,11 @@ class Kara():
         # print(self.model.evaluate(X_test, Y_test, batch_size=batch_size))
 
     def assemble_from_file(self):
-        with open('output/model.json', 'r') as f:
+        with open('output/model/model.json', 'r') as f:
             model_json = f.read()
 
         model = model_from_json(model_json)
-        model.load_weights('model.h5')
+        model.load_weights('output/model/model.h5')
 
         self.model = model
 

@@ -1,11 +1,11 @@
 {
   "name": "kara",
-  "version": "alpha-0.0.1",
+  "version": "0.0.1-alpha",
   "description": "Kolourizing ARtificial Assistant - An AI to help you give colour to B&W photos!",
   "main": "kara/model.h5",
   "repository": {
       "type": "git",
-      "url": "git+https://github.com/deeplearningunb/kara.git",
+      "url": "git+https://github.com/deeplearningunb/kara.git"
   },
   "keywords": [
       "ai",
