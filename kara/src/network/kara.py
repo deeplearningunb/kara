@@ -14,7 +14,7 @@ from keras.models import model_from_json
 class Kara():
     # Limit of files to be read
     # Define the limit via environment variables
-    FILELIMIT = 2500
+    FILELIMIT = 5000
 
     def __init__(self):
         self.inception = None
@@ -69,7 +69,7 @@ class Kara():
         model.fit_generator(
             image_generator(batch_size, X_train, self.inception),
             callbacks=[tensorboard],
-            epochs=100,
+            epochs=1000,
             steps_per_epoch=20
         )
 
