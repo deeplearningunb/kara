@@ -14,7 +14,7 @@ from keras.models import model_from_json
 class Kara():
     # Limit of files to be read
     # Define the limit via environment variables
-    FILELIMIT = 5000
+    FILELIMIT = 400
 
     def __init__(self):
         self.inception = None
