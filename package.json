@@ -20,7 +20,7 @@
   "private": false,
   "dependencies": {},
   "devDependencies": {
-    "standard-version": "^7.0.1"
+    "standard-version": "^8.0.1"
   },
   "scripts": {
     "release": "standard-version"
